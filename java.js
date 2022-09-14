@@ -54,7 +54,7 @@ const newSliceArray = sliceArray.slice(0, 3);
 // Дан массив [1, 2, 3, 4, 5]. С помощью метода slice запишите в новый элементы [4, 5].
 
 const secondSliceArray = [1, 2, 3, 4, 5];
-const newSecondSliceArray = secondSliceArray.slice(3);
+const newSecondSliceArray = secondSliceArray.slice(-2);
 
 
 //---- Задание 9 --------(splice)
@@ -82,39 +82,44 @@ thirdSpliceArray.splice(3, 0, 'a', 'b', 'c');
 // Дан массив [1, 2, 3, 4, 5]. С помощью метода splice сделайте из него массив [1, 'a', 'b', 2, 3, 4, 'c', 5, 'e'].
 
 const fourthSpliceArray = [1, 2, 3, 4, 5];
-fourthSpliceArray.splice(1, 4, 'a', 'd', 2, 3, 4, 'c', 5, 'e');
+fourthSpliceArray.splice(1, 0, 'a', 'b');
+fourthSpliceArray.splice(6, 0, 'c');
+fourthSpliceArray.splice(fourthSpliceArray.length, 0, 'e');
+//II вариант
+//fourthSpliceArray.splice(1, 4, 'a', 'b', 2, 3, 4, 'c', 5, 'e');
 
 
 //---- Задание 13 --------(sort)
 // Дан массив [3, 4, 1, 2, 7]. Отсортируйте его.
 
 const sortArray = [3, 4, 1, 2, 7];
-const newSortArray = sortArray.sort();
-
+/*const newSortArray = sortArray.sort();*/
+//II способ
+function sortArrFunc(a, b) {
+        return a - b;
+};
+console.log(sortArray.sort(sortArrFunc));
 
 //---- Задание 14 --------(forEach)
 /*Дан массив со следующими объектами внутри:  					
 {firstName: ‘Test’, lastName: ’Testovich’, age: 42, gender: ‘male’,}, 			
 {firstName: ‘User’, lastName: ’Userovich’, age: 12, gender: ‘male’,},		
 {firstName: ‘Test`ya’, lastName: ’Testovna’, age: 16, gender: ‘female’,},		
-{firstName: ‘Logina’, lastName: ’Consol`evna’, age: 42, gender: ‘female’,} 		
+{firstName: ‘Logina’, lastName: ’Consol`evna’, age: 42, gender: ‘female’,}, 		
 Для каждого элемента выведите сообщение в консоль типа “Пользователь (имя) (фамилия) является (пол) и ему сейчас (возраст) лет” */
 
-/*const forEarchArray = [
+const forEarchArray = [
     {firstName: 'Test', lastName: 'Testovich', age: 42, gender: 'male',}, 			
 {firstName: 'User', lastName: 'Userovich', age: 12, gender: 'male',},		
 {firstName: 'Test`ya', lastName: 'Testovna', age: 16, gender: 'female',},		
 {firstName: 'Logina', lastName: 'Consol`evna', age: 42, gender: 'female',}
 ];
 
-/*let naaame = forEarchArray[1];
+function messageForUser(element) {
+    console.log(`Пользователь ${element.firstName} ${element.lastName} является ${element.gender} и ему сейчас ${element.age} лет.`);
+}
+forEarchArray.forEach(messageForUser);
 
-
-let collback = function(currentElement, index, arr) {
-    console.log(`Пользователь  ${firstName}`);
-    console.log(`index: ${index}`);
-};
-naaame.forEach(collback);*/
 
 
 //---- Задание 15 --------(map)
@@ -125,7 +130,7 @@ naaame.forEach(collback);*/
 {firstName: ‘Logina’, lastName: ’Consol`evna’, age: 42, gender: ‘female’,}		
 Создайте новый массив на основании старого массива, добавив каждому пользователю в новом массиве свойство telephoneNumber которое может быть или строкой или числом (на ваше усмотрение).*/
 
-/*const mapArray = [
+const mapArray = [
     {firstName: 'Test', lastName: 'Testovich', age: 42, gender: 'male',}, 			
     {firstName: 'User', lastName: 'Userovich', age: 12, gender: 'male',},		
     {firstName: 'Test`ya', lastName: 'Testovna', age: 16, gender: 'female',},		
@@ -133,10 +138,18 @@ naaame.forEach(collback);*/
 ];
 
 const newMapArray = mapArray.map(function(currentElement, index) {
-    const telephoneNumber = ''; 
-    console.log(currentElement + telephoneNumber);
-    console.log(index + telephoneNumber);
-});*/
+    currentElement.telephonNumber = 0998768976;
+    const newMapArrayObject = {
+        firstName: currentElement.firstName,
+        lastName: currentElement.lastName,
+        age: currentElement.age,
+        gender: currentElement.gender,
+        telephonNumber: 0998768976 + index,
+    }
+    return newMapArrayObject;
+});
+console.log(mapArray);
+
 
 
 //---- Задание 16 --------(filter)
@@ -158,22 +171,15 @@ const filterArray = [
     {firstName: 'Null', lastName: 'Nullovich', gender: 'male'}
 ];
 
-const newFilterArray = filterArray.filter(function(element, index, arr) {
-    if (typeof age >= 18) {
-        return true;
-    } else {
-        return false;
-    }
-})
-
-
-
+const newFilterArray = filterArray.filter(function(element) {
+    return element.age >= 18 && element.gender === 'male';
+});
+console.log(newFilterArray);
 
 
 
 //---- Задание 17 --------(flat)
 //Дан следующий массив [1,2,3, [10,20,30, [100,200,300, [1000, 2000, 3000]]]]. Создайте новый массив на основании старого массива, в котором не будет вложенных массивов.
 
-/*const flatArray = [1,2,3, [10,20,30, [100,200,300, [1000, 2000, 3000]]]];
-const newFlatArray = flatArray.flat(Infinity);*/
-
+const flatArray = [1,2,3, [10,20,30, [100,200,300, [1000, 2000, 3000]]]];
+const newFlatArray = flatArray.flat(Infinity);
